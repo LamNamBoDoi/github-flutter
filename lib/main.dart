@@ -3,91 +3,96 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
-    create: (_) => CounterProvider(),
+    create: (_) => MySettings(),
     child: MaterialApp(
-      home: CounterHome(),
+      home: MyApp(),
     ),
   ));
 }
 
-class CounterProvider extends ChangeNotifier {
-  int _counter = 100;
-  int get counter => _counter;
+class MySettings extends ChangeNotifier {
+  String text = 'Done';
+  Color color = Colors.red;
 
-  void add() {
-    _counter++;
+  void changText() {
+    if (text == 'Hello') {
+      text = 'World';
+    } else {
+      text = 'Hello';
+    }
+    notifyListeners();
+  }
+
+  void changColor() {
+    if (color == Colors.red) {
+      color = Colors.blue;
+    } else {
+      color = Colors.red;
+    }
+    notifyListeners();
+  }
+
+  set newColor(Color newColor) {
+    color = newColor;
     notifyListeners();
   }
 }
 
-class CounterHome extends StatelessWidget {
-  const CounterHome({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home Screen'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              context.watch<CounterProvider>().counter.toString(),
-              style: TextStyle(fontSize: 50),
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => SecondScreen()));
-                },
-                child: Text('Go to second Screen'))
-          ],
+    return Consumer<MySettings>(builder: (context, mySettings, child) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Provider Demo'),
+          backgroundColor: mySettings.color,
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.read<CounterProvider>().add();
-        },
-        child: Icon(Icons.add),
-      ),
-    );
-  }
-}
-
-class SecondScreen extends StatelessWidget {
-  const SecondScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Second Screen'),
-        backgroundColor: Colors.red,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              context.watch<CounterProvider>().counter.toString(),
-              style: TextStyle(fontSize: 50),
-            ),
-            ElevatedButton(
+        drawer: Drawer(
+          child: Center(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              ElevatedButton(
+                  onPressed: () {
+                    mySettings.changColor();
+                    Navigator.pop(context);
+                  },
+                  child: Text('Chang Color')),
+              ElevatedButton(
+                  onPressed: () {
+                    mySettings.changText();
+                    Navigator.pop(context);
+                  },
+                  child: Text('Chang Text')),
+              ElevatedButton(
                 onPressed: () {
+                  mySettings.newColor = Colors.green;
                   Navigator.pop(context);
                 },
-                child: Text('Go to Home Screen'))
-          ],
+                child: Text('Change Color to Green'),
+              ),
+            ]),
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.read<CounterProvider>().add();
-        },
-        child: Icon(Icons.add),
-      ),
-    );
+        body: Center(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                mySettings.changText();
+                mySettings.changColor();
+              },
+              child: Text('Change Text'),
+              style: ElevatedButton.styleFrom(
+                primary: mySettings.color,
+              ),
+            ),
+            Text('${mySettings.text}')
+          ],
+        )),
+      );
+    });
   }
 }
