@@ -1,16 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hello_world/settings.dart';
-import 'package:hello_world/models/counter.dart';
 
 void main() {
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => MySettings()),
-      ChangeNotifierProvider(create: (_) => Counter()),
+      ChangeNotifierProvider(create: (_) => GioiTinh()),
+      ChangeNotifierProvider(create: (_) => BangCap()),
     ],
-    child: MyApp(),
+    child: MaterialApp(home: MyApp()),
   ));
+}
+
+enum gioi_tinh { nam, nu }
+
+enum bang_cap { CaoDang, DaiHoc, ThacSi, TienSi }
+
+class GioiTinh extends ChangeNotifier {
+  gioi_tinh? _gioiTinh = gioi_tinh.nam;
+
+  gioi_tinh? get gioiTinh => _gioiTinh;
+
+  set gioiTinh(gioi_tinh? value) {
+    _gioiTinh = value;
+    notifyListeners();
+  }
+}
+
+class BangCap extends ChangeNotifier {
+  bang_cap? _bangCap = bang_cap.DaiHoc;
+
+  bang_cap? get bangCap => _bangCap;
+
+  set bangCap(value) {
+    _bangCap = value;
+    notifyListeners();
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -18,55 +42,78 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Calculator',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: context.watch<MySettings>().isDark
-            ? Brightness.dark
-            : Brightness.light,
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Flutter Provider'),
-          actions: [
-            Switch(
-              value: context.watch<MySettings>().isDark,
-              onChanged: (newValue) {
-                //context.read<MySettings>().setBrightness(newValue);
-                Provider.of<MySettings>(context, listen: false)
-                    .setBrightness(newValue);
+      appBar: AppBar(
+        title: Text('Radio Demo'),
+      ),
+      body: Consumer2<GioiTinh, BangCap>(
+          builder: (context, infoGioiTinh, infoBangCap, child) {
+        return Column(
+          children: [
+            Text('Gioi Tinh'),
+            RadioListTile<gioi_tinh?>(
+              value: gioi_tinh.nam,
+              title: Text('Nam'),
+              secondary: Icon(Icons.male),
+              groupValue: infoGioiTinh.gioiTinh,
+              onChanged: (value) {
+                infoGioiTinh.gioiTinh = value;
               },
+            ),
+            RadioListTile<gioi_tinh?>(
+              value: gioi_tinh.nu,
+              title: Text('Nu'),
+              secondary: Icon(Icons.female),
+              groupValue: infoGioiTinh.gioiTinh,
+              onChanged: (value) {
+                infoGioiTinh.gioiTinh = value;
+              },
+            ),
+            Text('Bang Cap'),
+            RadioListTile<bang_cap?>(
+              value: bang_cap.CaoDang,
+              title: Text('Cao Dang'),
+              groupValue: infoBangCap.bangCap,
+              onChanged: (value) {
+                infoBangCap.bangCap = value;
+              },
+            ),
+            RadioListTile<bang_cap?>(
+              value: bang_cap.DaiHoc,
+              title: Text('Dai Hoc'),
+              groupValue: infoBangCap.bangCap,
+              onChanged: (value) {
+                infoBangCap.bangCap = value;
+              },
+            ),
+            RadioListTile<bang_cap?>(
+              value: bang_cap.TienSi,
+              title: Text('Tien Si'),
+              groupValue: infoBangCap.bangCap,
+              onChanged: (value) {
+                infoBangCap.bangCap = value;
+              },
+            ),
+            RadioListTile<bang_cap?>(
+              value: bang_cap.ThacSi,
+              title: Text('Thac Si'),
+              groupValue: infoBangCap.bangCap,
+              onChanged: (value) {
+                infoBangCap.bangCap = value;
+              },
+            ),
+            Divider(
+              height: 100,
+            ),
+            Center(
+              child: Text(
+                'Thong tin ca nhan: ${infoGioiTinh.gioiTinh}, ${infoBangCap.bangCap}',
+                style: TextStyle(fontSize: 20),
+              ),
             )
           ],
-        ),
-        body: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('You have pushed the button this many times:'),
-            Text(
-              context.watch<Counter>().myValue.toString(),
-              style: Theme.of(context).textTheme.headline4,
-            )
-          ],
-        )),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            context.read<Counter>().add();
-          },
-          child: Icon(Icons.add),
-        ));
+        );
+      }),
+    );
   }
 }
