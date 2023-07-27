@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hello_world/views/login_screen.dart';
 
-main() => runApp(MyApp());
+import 'class/parent.dart';
+
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -9,8 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Bloc',
-      home: LoginScreen(),
+      home: Parent(),
     );
   }
 }
