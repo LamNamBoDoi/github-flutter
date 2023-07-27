@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'my_home_page.dart';
+import 'package:hello_world/views/login_screen.dart';
 
-void main() {
-  runApp(MyApp());
-}
+main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,11 +9,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
+      title: 'Flutter Bloc',
+      home: LoginScreen(),
     );
   }
 }
