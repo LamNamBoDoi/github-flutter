@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_world/widget/custom_text_form_field.dart';
 
 class AddEmployee extends StatefulWidget {
   const AddEmployee({super.key});
@@ -8,7 +9,10 @@ class AddEmployee extends StatefulWidget {
 }
 
 class _AddEmployeeState extends State<AddEmployee> {
-  TextEditingController _controller = TextEditingController();
+  TextEditingController _userNameController = TextEditingController();
+  TextEditingController _firstNameController = TextEditingController();
+  TextEditingController _lastNameController = TextEditingController();
+  TextEditingController _dateOfBirthController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,16 +24,34 @@ class _AddEmployeeState extends State<AddEmployee> {
       body: Container(
         padding: EdgeInsets.all(8),
         child: Column(children: [
-          TextFormField(
-            controller: _controller,
-            keyboardType: TextInputType.name,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(), label: Text('User Name')),
-            validator: (value) {
-              if (value == null || value.isEmpty)
-                return 'User name cannot be empty';
-            },
-          )
+          CustomTextFormField(
+            controller: _userNameController,
+            txtLabel: 'User Name',
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          CustomTextFormField(
+            controller: _firstNameController,
+            txtLabel: 'First Name',
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          CustomTextFormField(
+            controller: _lastNameController,
+            txtLabel: 'Last Name',
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          CustomTextFormField(
+            controller: _dateOfBirthController,
+            txtLabel: 'Date Of Birth',
+          ),
+          SizedBox(
+            height: 8,
+          ),
         ]),
       ),
     );
