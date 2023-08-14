@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hello_world/screen/add_employee_sreen.dart';
-import 'package:hello_world/screen/home_screen.dart';
+import '../screen/add_employee.dart';
+import '../screen/home_screen.dart';
 
 class RouteGenerator {
-  static Route<dynamic> generteRoute(RouteSettings settings) {
+  static Route<dynamic> generatorRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => HomeScreen());
-      case '/add_employee':
+      case '/addEmployee':
         return MaterialPageRoute(builder: (_) => AddEmployee());
       default:
         return _errorRoute();
@@ -23,8 +23,8 @@ class RouteGenerator {
         ),
         body: Center(
           child: Text(
-            'Sorry no route was found!',
-            style: TextStyle(color: Colors.red, fontSize: 18),
+            'Srroy no route was found!',
+            style: TextStyle(fontSize: 18, color: Colors.red),
           ),
         ),
       );
