@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/widget/custem_text_form_field.dart';
+import 'package:intl/intl.dart';
 
 class AddEmployee extends StatefulWidget {
   const AddEmployee({super.key});
@@ -13,6 +14,7 @@ class _AddEmployeeState extends State<AddEmployee> {
   TextEditingController _firstNameController = TextEditingController();
   TextEditingController _lastNameController = TextEditingController();
   TextEditingController _dateOfBirthController = TextEditingController();
+  DateTime? _dateOfBirth;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +61,7 @@ class _AddEmployeeState extends State<AddEmployee> {
     final initiaDate = DateTime.now();
     final newDate = await showDatePicker(
         context: context,
-        initialDate: initiaDate,
+        initialDate: _dateOfBirth ?? initiaDate,
         firstDate: DateTime(DateTime.now().year - 100),
         lastDate: DateTime(DateTime.now().year + 1),
         builder: (context, child) => Theme(
@@ -73,7 +75,9 @@ class _AddEmployeeState extends State<AddEmployee> {
             ));
     if (newDate == null) return;
     setState(() {
-      _dateOfBirthController.text = newDate.toString();
+      // _dateOfBirth = newDate;
+      String dob = DateFormat('dd/MM/yyyy').format(newDate);
+      _dateOfBirthController.text = dob;
     });
   }
 }
