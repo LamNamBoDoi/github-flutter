@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/widget/custem_text_form_field.dart';
+import 'package:hello_world/widget/custom_date_picker_form_field.dart';
 import 'package:intl/intl.dart';
 
 class AddEmployee extends StatefulWidget {
@@ -40,18 +41,12 @@ class _AddEmployeeState extends State<AddEmployee> {
           SizedBox(
             height: 8,
           ),
-          TextFormField(
-            controller: _dateOfBirthController,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              label: Text('Date of birth'),
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty)
-                return 'Date of birth cannot be empty';
-            },
-            onTap: () => pickDateOfBirth(context),
-          )
+          CustomDatePickerFormFiled(
+              controller: _dateOfBirthController,
+              txtLabel: 'Date of birth',
+              callBack: () {
+                pickDateOfBirth(context);
+              })
         ]),
       ),
     );
@@ -75,7 +70,7 @@ class _AddEmployeeState extends State<AddEmployee> {
             ));
     if (newDate == null) return;
     setState(() {
-      // _dateOfBirth = newDate;
+      _dateOfBirth = newDate;
       String dob = DateFormat('dd/MM/yyyy').format(newDate);
       _dateOfBirthController.text = dob;
     });
