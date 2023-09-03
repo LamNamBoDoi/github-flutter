@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:hello_world/route/route_generator.dart';
+import 'package:hello_world/page/welcome.dart';
+import 'package:sizer/sizer.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(AnimatedLogin());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class AnimatedLogin extends StatelessWidget {
+  const AnimatedLogin({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      initialRoute: '/',
-      onGenerateRoute: RouteGenerator.generatorRoute,
+    return Sizer(
+      builder: (context, orientation, deviceType) => MaterialApp(
+        theme: ThemeData(fontFamily: 'Satoshi'),
+        home: WelcomePage(),
+      ),
     );
   }
 }
