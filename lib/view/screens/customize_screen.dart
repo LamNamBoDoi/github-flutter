@@ -207,7 +207,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                                   fontSize: 24, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(
-                              height: 20,
+                              height: 15,
                             ),
                             Row(
                               children: [
@@ -248,7 +248,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                               ],
                             ),
                             const SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             Row(
                               children: [
