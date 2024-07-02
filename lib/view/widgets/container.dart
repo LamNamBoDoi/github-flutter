@@ -17,7 +17,7 @@ Widget container(
     child: Center(
       child: Text(
         text,
-        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
       ),
     ),
   );

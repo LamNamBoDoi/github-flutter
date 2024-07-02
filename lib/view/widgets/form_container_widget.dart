@@ -38,7 +38,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
             border: InputBorder.none,
             filled: true,
             fillColor: Colors.white24,
-            labelStyle: TextStyle(color: Colors.black),
+            labelStyle: const TextStyle(color: Colors.black),
             labelText: widget.labelText,
             suffixIcon: GestureDetector(
               onTap: () {

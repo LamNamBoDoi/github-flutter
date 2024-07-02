@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     super.dispose();
-    // TODO: implement dispose
+
     emailController.dispose();
     passwordController.dispose();
   }
@@ -33,8 +33,8 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: authcolor,
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: 15),
-          padding: EdgeInsets.all(30),
+          margin: const EdgeInsets.symmetric(vertical: 15),
+          padding: const EdgeInsets.all(30),
           child: Column(
             children: [
               Center(
@@ -45,10 +45,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
                 alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(vertical: 30),
-                child: Text(
+                padding: const EdgeInsets.symmetric(vertical: 30),
+                child: const Text(
                   'Welcome',
                   style: TextStyle(
                       color: Colors.white,
@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               FormContainerWidget(
@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 isPassword: false,
                 labelText: 'Email',
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               FormContainerWidget(
@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 isPassword: true,
                 labelText: 'Password',
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               GestureDetector(
@@ -87,10 +87,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                       child: _isSigning
-                          ? CircularProgressIndicator(
+                          ? const CircularProgressIndicator(
                               color: Colors.white,
                             )
-                          : Text(
+                          : const Text(
                               'Sign In',
                               style: TextStyle(
                                   color: Colors.white,
@@ -99,17 +99,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             )),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "Don't have an account?",
                     style: TextStyle(color: Colors.white, fontSize: 14),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   GestureDetector(
@@ -117,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => SignUpScreen()));
                     },
-                    child: Text(
+                    child: const Text(
                       ' Sign Up',
                       style: TextStyle(
                           color: Color.fromARGB(255, 232, 99, 89),

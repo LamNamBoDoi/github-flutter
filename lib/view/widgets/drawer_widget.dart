@@ -45,7 +45,7 @@ class _MyDrawerState extends State<MyDrawer> {
                       width: 80,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Container(
@@ -54,7 +54,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     children: [
                       Text(
                         'Admin: ${_user?.displayName}',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                       Text(_user!.email.toString()),
@@ -103,8 +103,8 @@ class _MyDrawerState extends State<MyDrawer> {
 
 Widget buildrawertile(BuildContext context, String title, IconData title_ic) {
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 20),
-    margin: EdgeInsets.symmetric(vertical: 20),
+    padding: const EdgeInsets.symmetric(horizontal: 20),
+    margin: const EdgeInsets.symmetric(vertical: 20),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

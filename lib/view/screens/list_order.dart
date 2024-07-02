@@ -29,13 +29,13 @@ class _ListOrderState extends State<ListOrder> {
         backgroundColor: homescafold_color,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.menu),
+          icon: const Icon(Icons.menu),
           onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
           },
           color: Colors.black,
         ),
-        title: Center(
+        title: const Center(
             child: Text(
           'List Order',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
@@ -43,7 +43,7 @@ class _ListOrderState extends State<ListOrder> {
         actions: [
           Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.add_shopping_cart_outlined,
                 color: Colors.black,
               ),
@@ -53,9 +53,9 @@ class _ListOrderState extends State<ListOrder> {
                         .orders
                         .length
                         .toString(),
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: const TextStyle(color: Colors.black, fontSize: 20),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               )
             ],
@@ -75,24 +75,24 @@ class _ListOrderState extends State<ListOrder> {
                           final order = orderProvider.orders[index];
                           final carts = order.carts;
                           return Container(
-                            margin:
-                                EdgeInsets.only(top: 10, right: 10, left: 10),
-                            padding: EdgeInsets.symmetric(vertical: 5),
+                            margin: const EdgeInsets.only(
+                                top: 10, right: 10, left: 10),
+                            padding: const EdgeInsets.symmetric(vertical: 5),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: Color.fromARGB(255, 164, 121, 105),
+                              color: const Color.fromARGB(255, 164, 121, 105),
                             ),
                             child: ListTile(
                                 title: Column(children: [
                               ListView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   itemCount: carts.length,
                                   itemBuilder:
                                       (BuildContext context, int subIndex) {
                                     final cart = carts[subIndex];
                                     return Container(
-                                      margin: EdgeInsets.only(bottom: 10),
+                                      margin: const EdgeInsets.only(bottom: 10),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
                                         color:
@@ -100,8 +100,8 @@ class _ListOrderState extends State<ListOrder> {
                                       ),
                                       child: ListTile(
                                         title: Container(
-                                          padding:
-                                              EdgeInsets.symmetric(vertical: 5),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 5),
                                           child: Row(
                                             children: [
                                               Container(
@@ -119,7 +119,7 @@ class _ListOrderState extends State<ListOrder> {
                                                               .spaceBetween,
                                                       children: [
                                                         Text(cart.name,
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                                 fontSize: 20,
                                                                 fontWeight:
                                                                     FontWeight
@@ -128,7 +128,7 @@ class _ListOrderState extends State<ListOrder> {
                                                           cart.price
                                                                   .toString() +
                                                               'đ',
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                               fontSize: 15,
                                                               fontWeight:
                                                                   FontWeight
@@ -148,7 +148,7 @@ class _ListOrderState extends State<ListOrder> {
                                                                     cart.size
                                                                         .toString(),
                                                                 style:
-                                                                    TextStyle(
+                                                                    const TextStyle(
                                                                   color: Colors
                                                                       .black87,
                                                                   fontSize: 15,
@@ -158,7 +158,7 @@ class _ListOrderState extends State<ListOrder> {
                                                                     cart.ice
                                                                         .toString(),
                                                                 style:
-                                                                    TextStyle(
+                                                                    const TextStyle(
                                                                   color: Colors
                                                                       .black87,
                                                                   fontSize: 15,
@@ -169,7 +169,7 @@ class _ListOrderState extends State<ListOrder> {
                                                           'x' +
                                                               cart.quantity
                                                                   .toString(),
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                               fontSize: 15,
                                                               fontWeight:
                                                                   FontWeight
@@ -200,7 +200,7 @@ class _ListOrderState extends State<ListOrder> {
                                   InkWell(
                                     onTap: () =>
                                         orderProvider.deleteOrder(order.id),
-                                    child: Icon(Icons.delete_outline),
+                                    child: const Icon(Icons.delete_outline),
                                   )
                                 ],
                               )
@@ -217,7 +217,7 @@ class _ListOrderState extends State<ListOrder> {
                               AlwaysStoppedAnimation<Color>(button_color),
                         ),
                       )
-                    : SizedBox.shrink()),
+                    : const SizedBox.shrink()),
           ],
         ),
       ),

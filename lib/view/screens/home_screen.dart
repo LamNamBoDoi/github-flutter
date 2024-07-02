@@ -25,13 +25,13 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: homescafold_color,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.menu),
+          icon: const Icon(Icons.menu),
           onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
           },
           color: Colors.black,
         ),
-        title: Center(
+        title: const Center(
             child: Text(
           'Home',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
@@ -47,19 +47,19 @@ class _HomePageState extends State<HomePage> {
                     Consumer<CartsProvider>(builder: (context, value, child) {
                   return Text(
                     value.carts.length.toString(),
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   );
                 }),
-                animationDuration: Duration(milliseconds: 300),
+                animationDuration: const Duration(milliseconds: 300),
                 animationType: badges.BadgeAnimationType.slide,
-                child: Icon(
+                child: const Icon(
                   Icons.shopping_bag_outlined,
                   color: Colors.black,
                 ),
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 25,
           )
         ],
@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
         builder: (context, productProvider, child) => Stack(
           children: [
             Container(
-              margin: EdgeInsets.all(20),
+              margin: const EdgeInsets.all(20),
               child: Column(
                 children: [
                   Expanded(
@@ -78,11 +78,12 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (BuildContext context, int index) {
                             final product = productProvider.products[index];
                             return Container(
-                                margin: EdgeInsets.only(top: 10),
-                                padding: EdgeInsets.all(10),
+                                margin: const EdgeInsets.only(top: 10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  color: Color.fromARGB(255, 164, 121, 105),
+                                  color:
+                                      const Color.fromARGB(255, 164, 121, 105),
                                 ),
                                 child: ListTile(
                                   title: Row(
@@ -100,13 +101,13 @@ class _HomePageState extends State<HomePage> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(product.name,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 25,
                                                     fontWeight:
                                                         FontWeight.bold)),
                                             Text(
                                               product.price.toString() + 'đ',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 20,
                                                   fontWeight: FontWeight.w400),
                                             ),
@@ -117,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   trailing: InkWell(
                                     child: Container(
-                                      padding: EdgeInsets.all(10),
+                                      padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         color: button_color,
                                         borderRadius: BorderRadius.circular(10),
@@ -143,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                               AlwaysStoppedAnimation<Color>(button_color),
                         ),
                       )
-                    : SizedBox.shrink()),
+                    : const SizedBox.shrink()),
           ],
         ),
       ),

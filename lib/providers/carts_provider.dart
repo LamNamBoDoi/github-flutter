@@ -44,30 +44,34 @@ class CartsProvider with ChangeNotifier {
 
   Future<void> updateCart({required Cart cart, int? quantity}) async {
     setLoading(true);
-    final docRef = FirebaseFirestore.instance.collection('carts').doc(cart.id);
-    final docSnapshot = await docRef.get();
+    try {
+      final docRef =
+          FirebaseFirestore.instance.collection('carts').doc(cart.id);
+      final docSnapshot = await docRef.get();
 
-    if (docSnapshot.exists) {
-      await docRef.update({
-        'name': cart.name,
-        'price': cart.price,
-        'size': cart.size,
-        'ice': cart.ice,
-        'quantity': quantity ?? cart.quantity
-      });
+      if (docSnapshot.exists) {
+        await docRef.update({
+          'name': cart.name,
+          'price': cart.price,
+          'size': cart.size,
+          'ice': cart.ice,
+          'quantity': quantity ?? cart.quantity
+        });
+      }
+
+      final index = _carts.indexWhere((element) => element.id == cart.id);
+      if (index != -1) {
+        _carts[index] = Cart(
+            id: cart.id,
+            name: cart.name,
+            price: cart.price,
+            size: cart.size,
+            ice: cart.ice,
+            quantity: quantity ?? cart.quantity);
+      }
+    } catch (e) {
+      print(e.toString());
     }
-
-    final index = _carts.indexWhere((element) => element.id == cart.id);
-    if (index != -1) {
-      _carts[index] = Cart(
-          id: cart.id,
-          name: cart.name,
-          price: cart.price,
-          size: cart.size,
-          ice: cart.ice,
-          quantity: quantity ?? cart.quantity);
-    }
-
     notifyListeners();
     setLoading(false);
   }

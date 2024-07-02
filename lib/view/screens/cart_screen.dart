@@ -22,10 +22,10 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: homescafold_color,
         elevation: 0,
-        title: Center(
+        title: const Center(
             child: Text(
           'Cart',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
@@ -37,18 +37,18 @@ class _CartScreenState extends State<CartScreen> {
                   Consumer<CartsProvider>(builder: (context, value, child) {
                 return Text(
                   value.carts.length.toString(),
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                 );
               }),
-              animationDuration: Duration(milliseconds: 300),
+              animationDuration: const Duration(milliseconds: 300),
               animationType: badges.BadgeAnimationType.slide,
-              child: Icon(
+              child: const Icon(
                 Icons.shopping_bag_outlined,
                 color: Colors.black,
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 25,
           )
         ],
@@ -57,7 +57,8 @@ class _CartScreenState extends State<CartScreen> {
         builder: (context, cartProvider, orderProvider, child) => Stack(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 20, right: 20, left: 20, bottom: 75),
+              margin: const EdgeInsets.only(
+                  top: 20, right: 20, left: 20, bottom: 75),
               child: Column(
                 children: [
                   Expanded(
@@ -66,10 +67,11 @@ class _CartScreenState extends State<CartScreen> {
                           itemBuilder: (BuildContext context, int index) {
                             final cart = cartProvider.carts[index];
                             return Container(
-                                margin: EdgeInsets.only(top: 10),
+                                margin: const EdgeInsets.only(top: 10),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  color: Color.fromARGB(255, 164, 121, 105),
+                                  color:
+                                      const Color.fromARGB(255, 164, 121, 105),
                                 ),
                                 child: ListTile(
                                   leading: Container(
@@ -78,7 +80,8 @@ class _CartScreenState extends State<CartScreen> {
                                     child: Image.asset('assets/bubble-tea.png'),
                                   ),
                                   title: Container(
-                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10),
                                     child: Row(
                                       children: [
                                         Expanded(
@@ -92,13 +95,13 @@ class _CartScreenState extends State<CartScreen> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(cart.name,
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontSize: 20,
                                                           fontWeight:
                                                               FontWeight.bold)),
                                                   Text(
                                                     cart.price.toString() + 'đ',
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontSize: 15,
                                                         fontWeight:
                                                             FontWeight.w400),
@@ -116,7 +119,7 @@ class _CartScreenState extends State<CartScreen> {
                                                           ', ' +
                                                           "Ice: " +
                                                           cart.ice.toString(),
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                         color: Colors.black87,
                                                         fontSize: 15,
                                                       )),
@@ -124,14 +127,14 @@ class _CartScreenState extends State<CartScreen> {
                                                     'x' +
                                                         cart.quantity
                                                             .toString(),
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontSize: 15,
                                                         fontWeight:
                                                             FontWeight.w400),
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 5,
                                               ),
                                               Row(
@@ -144,7 +147,7 @@ class _CartScreenState extends State<CartScreen> {
                                                       _showDialog(
                                                           context, cart);
                                                     },
-                                                    child: Row(
+                                                    child: const Row(
                                                       children: [
                                                         Icon(Icons
                                                             .edit_note_outlined),
@@ -217,7 +220,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                   child: Center(
                                                                       child: Text(
                                                                           '${cart.quantity}',
-                                                                          style: TextStyle(
+                                                                          style: const TextStyle(
                                                                               color: Colors.black,
                                                                               fontSize: 20))),
                                                                 ),
@@ -247,7 +250,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                         button_color,
                                                                     height: 100,
                                                                     child:
-                                                                        Center(
+                                                                        const Center(
                                                                       child:
                                                                           Icon(
                                                                         Icons
@@ -262,12 +265,13 @@ class _CartScreenState extends State<CartScreen> {
                                                             ],
                                                           ),
                                                         ),
-                                                        SizedBox(width: 10),
+                                                        const SizedBox(
+                                                            width: 10),
                                                         InkWell(
                                                           child: Container(
                                                             padding:
-                                                                EdgeInsets.all(
-                                                                    5),
+                                                                const EdgeInsets
+                                                                    .all(5),
                                                             decoration:
                                                                 BoxDecoration(
                                                               color:
@@ -277,7 +281,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                       .circular(
                                                                           10),
                                                             ),
-                                                            child: Icon(Icons
+                                                            child: const Icon(Icons
                                                                 .delete_outline),
                                                           ),
                                                           onTap: () {
@@ -322,7 +326,7 @@ class _CartScreenState extends State<CartScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Total price: ',
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.w400),
@@ -378,11 +382,15 @@ class _CartScreenState extends State<CartScreen> {
           int _selectedButtonSizeIndex = -1;
           int _selectedButtonIceIndex = -1;
           double price = cart.price;
+          print(price.toString());
+
+          double priceEdit = 0;
           final products =
               Provider.of<ProductsProvider>(context).products.first;
           for (String size in products.size) {
             if (cart.size == size) {
               _selectedButtonSizeIndex = products.size.indexOf(size);
+              print(_selectedButtonIceIndex);
             }
           }
           for (String ice in products.ice) {
@@ -390,12 +398,19 @@ class _CartScreenState extends State<CartScreen> {
               _selectedButtonIceIndex = products.ice.indexOf(ice);
             }
           }
-          print('aaaaaaaa');
+          if (_selectedButtonSizeIndex == 0)
+            priceEdit = price + price * 0.1 + 100;
+          else if (_selectedButtonSizeIndex == 1)
+            priceEdit = price;
+          else
+            priceEdit = price - price * 0.1 + 100;
+          print(priceEdit.toString() + ' , ' + cart.quantity.toString());
+
           return AlertDialog(
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
             ),
-            title: Center(
+            title: const Center(
               child: Text('Edit cart'),
             ),
             content: StatefulBuilder(builder: (context, setState) {
@@ -406,7 +421,7 @@ class _CartScreenState extends State<CartScreen> {
                   children: [
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           'Size',
                           style: TextStyle(fontSize: 20),
                         ),
@@ -428,14 +443,14 @@ class _CartScreenState extends State<CartScreen> {
                                           _selectedButtonSizeIndex = index;
                                           if (index == 0)
                                             price =
-                                                (cart.price - cart.price * 0.1)
+                                                (priceEdit - priceEdit * 0.1)
                                                     .ceilToDouble();
                                           else if (index == 2)
                                             price =
-                                                (cart.price + cart.price * 0.1)
+                                                (priceEdit + priceEdit * 0.1)
                                                     .ceilToDouble();
                                           else
-                                            price = cart.price;
+                                            price = priceEdit;
                                           print('size: ' + index.toString());
                                         });
                                       },
@@ -454,7 +469,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           'Ice',
                           style: TextStyle(fontSize: 20),
                         ),

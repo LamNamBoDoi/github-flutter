@@ -34,8 +34,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         backgroundColor: authcolor,
         body: SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.symmetric(vertical: 15),
-            padding: EdgeInsets.all(30),
+            margin: const EdgeInsets.symmetric(vertical: 15),
+            padding: const EdgeInsets.all(30),
             child: Column(
               children: [
                 Center(
@@ -46,10 +46,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(vertical: 30),
-                  child: Text(
+                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  child: const Text(
                     'Sign Up',
                     style: TextStyle(
                         color: Colors.white,
@@ -57,7 +57,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 FormContainerWidget(
@@ -65,7 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   isPassword: false,
                   labelText: 'Name',
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 FormContainerWidget(
@@ -73,7 +73,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   isPassword: false,
                   labelText: 'Email',
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 FormContainerWidget(
@@ -81,7 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   isPassword: true,
                   labelText: 'Password',
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 GestureDetector(
@@ -92,14 +92,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: double.infinity,
                     height: 45,
                     decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 232, 99, 89),
+                        color: const Color.fromARGB(255, 232, 99, 89),
                         borderRadius: BorderRadius.circular(10)),
                     child: Center(
                         child: isSigningUp
-                            ? CircularProgressIndicator(
+                            ? const CircularProgressIndicator(
                                 color: Colors.white,
                               )
-                            : Text(
+                            : const Text(
                                 'Sign Up',
                                 style: TextStyle(
                                     color: Colors.white,
@@ -108,24 +108,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               )),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "Have an account?",
                       style: TextStyle(color: Colors.white, fontSize: 14),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
                     GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, '/login');
                       },
-                      child: Text(
+                      child: const Text(
                         ' Sign In',
                         style: TextStyle(
                             color: Color.fromARGB(255, 232, 99, 89),

@@ -45,6 +45,7 @@ class ProductsProvider with ChangeNotifier {
 
   Future<void> updateProduct(Product product) async {
     setLoading(true);
+
     await FirebaseFirestore.instance
         .collection('products')
         .doc(product.id)
@@ -54,6 +55,7 @@ class ProductsProvider with ChangeNotifier {
       _products[index] =
           Product(id: product.id, name: product.name, price: product.price);
     }
+
     notifyListeners();
     setLoading(false);
   }

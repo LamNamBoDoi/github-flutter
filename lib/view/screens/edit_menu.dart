@@ -28,7 +28,7 @@ class _EditMenuState extends State<EditMenu> {
       appBar: AppBar(
         backgroundColor: homescafold_color,
         elevation: 0,
-        title: Center(
+        title: const Center(
             child: Text(
           'Edit menu',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
@@ -43,7 +43,7 @@ class _EditMenuState extends State<EditMenu> {
         actions: [
           Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.add_shopping_cart_outlined,
                 color: Colors.black,
               ),
@@ -53,9 +53,9 @@ class _EditMenuState extends State<EditMenu> {
                         .products
                         .length
                         .toString(),
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: const TextStyle(color: Colors.black, fontSize: 20),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               )
             ],
@@ -68,7 +68,7 @@ class _EditMenuState extends State<EditMenu> {
           // var provider = ProductsProvider();
           // provider.fetchProducts();
           Container(
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         child: Stack(
           children: [
             Column(
@@ -80,14 +80,14 @@ class _EditMenuState extends State<EditMenu> {
                           controller: nameController,
                           isPassword: false,
                           labelText: 'Name'),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       FormContainerWidget(
                           controller: priceController,
                           isPassword: false,
                           labelText: 'Price'),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       InkWell(
@@ -113,9 +113,9 @@ class _EditMenuState extends State<EditMenu> {
                           width: 100,
                           height: 45,
                           decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 232, 99, 89),
+                              color: const Color.fromARGB(255, 232, 99, 89),
                               borderRadius: BorderRadius.circular(10)),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
@@ -165,15 +165,15 @@ class _EditMenuState extends State<EditMenu> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(product.name,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 23,
                                                   fontWeight: FontWeight.bold)),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 2,
                                           ),
                                           Text(
                                             product.price.toString() + 'đ',
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w400),
                                           ),
@@ -200,7 +200,8 @@ class _EditMenuState extends State<EditMenu> {
                                             context: context,
                                             builder: (context) {
                                               return AlertDialog(
-                                                shape: RoundedRectangleBorder(
+                                                shape:
+                                                    const RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.all(
                                                           Radius.circular(
@@ -216,7 +217,7 @@ class _EditMenuState extends State<EditMenu> {
                                                             nameControllerDialog,
                                                         isPassword: false,
                                                         labelText: 'Name'),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 5,
                                                     ),
                                                     FormContainerWidget(
@@ -232,8 +233,8 @@ class _EditMenuState extends State<EditMenu> {
                                                         child: Container(
                                                             width: 100,
                                                             padding:
-                                                                EdgeInsets.all(
-                                                                    10),
+                                                                const EdgeInsets
+                                                                    .all(10),
                                                             decoration: BoxDecoration(
                                                                 borderRadius:
                                                                     BorderRadius
@@ -241,7 +242,7 @@ class _EditMenuState extends State<EditMenu> {
                                                                             10),
                                                                 color:
                                                                     button_color),
-                                                            child: Center(
+                                                            child: const Center(
                                                                 child: Text(
                                                               'Ok',
                                                               style: TextStyle(
@@ -289,9 +290,9 @@ class _EditMenuState extends State<EditMenu> {
                                               );
                                             });
                                       },
-                                      child: Icon(Icons.edit),
+                                      child: const Icon(Icons.edit),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 15,
                                     ),
                                     InkWell(
@@ -300,7 +301,7 @@ class _EditMenuState extends State<EditMenu> {
                                             .deleteProduct(product.id);
                                         showToast(message: 'Delete successly');
                                       },
-                                      child: Icon(Icons.delete),
+                                      child: const Icon(Icons.delete),
                                     ),
                                   ],
                                 ),
@@ -320,7 +321,7 @@ class _EditMenuState extends State<EditMenu> {
                     ),
                   );
                 }
-                return SizedBox.shrink();
+                return const SizedBox.shrink();
               }),
             ),
           ],

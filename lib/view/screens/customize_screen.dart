@@ -64,7 +64,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
             iconTheme: IconThemeData(color: Colors.black),
             backgroundColor: homescafold_color,
             elevation: 0,
-            title: Text(
+            title: const Text(
               'Customize Order',
               style:
                   TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
@@ -119,12 +119,12 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(product.name,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.bold)),
                                 Text(
                                   product.price.toString() + 'đ',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w400),
                                 ),
@@ -169,7 +169,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                                       height: 100,
                                       child: Center(
                                           child: Text('$count',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 20))),
                                     ),
@@ -181,7 +181,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                                       child: Container(
                                         color: button_color,
                                         height: 100,
-                                        child: Center(
+                                        child: const Center(
                                           child: Icon(
                                             Icons.add,
                                             color: Colors.white,
@@ -201,17 +201,17 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               'Customize',
                               style: TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Row(
                               children: [
-                                Text(
+                                const Text(
                                   'Size',
                                   style: TextStyle(fontSize: 20),
                                 ),
@@ -247,12 +247,12 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(
                               children: [
-                                Text(
+                                const Text(
                                   'Ice',
                                   style: TextStyle(fontSize: 20),
                                 ),
@@ -299,20 +299,20 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   'Total price:',
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 3,
                                 ),
                                 Text(
                                   (price * count).toString() + 'đ',
-                                  style: TextStyle(fontSize: 20),
+                                  style: const TextStyle(fontSize: 20),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 )
                               ],
