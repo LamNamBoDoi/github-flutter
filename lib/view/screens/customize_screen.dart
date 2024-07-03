@@ -6,6 +6,7 @@ import 'package:firebase/view/widgets/container.dart';
 import 'package:firebase/view/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class CustomizeScreen extends StatefulWidget {
   @override
@@ -13,11 +14,11 @@ class CustomizeScreen extends StatefulWidget {
 }
 
 class _CustomizeScreenState extends State<CustomizeScreen> {
+  var uuid = Uuid();
   int count = 1;
   void increseCount() {
     setState(() {
       count++;
-      print(count);
     });
   }
 
@@ -36,9 +37,9 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
     setState(() {
       _selectedButtonSizeIndex = index;
       if (index == 0)
-        price = (priceProduct - priceProduct * 0.1).ceilToDouble();
+        price = priceProduct - 5000;
       else if (index == 2)
-        price = (priceProduct + priceProduct * 0.1).ceilToDouble();
+        price = priceProduct + 5000;
       else
         price = priceProduct;
     });
@@ -318,14 +319,14 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                               ],
                             ),
                             InkWell(
-                              onTap: () {
+                              onTap: () async {
                                 if (_selectedButtonIceIndex == -1 ||
                                     _selectedButtonSizeIndex == -1) {
                                   showToast(message: 'Please choose size, ice');
                                 } else {
-                                  cart
+                                  await cart
                                       .addCart(Cart(
-                                          id: product.id,
+                                          id: uuid.v4(),
                                           name: product.name,
                                           price: price,
                                           quantity: count,

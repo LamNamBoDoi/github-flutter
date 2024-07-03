@@ -30,7 +30,7 @@ class Product {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
     return Product(
-        id: doc.id,
+        id: data['id'],
         name: data['name'],
         price: data['price'],
         size: listFromMap(data['size']),

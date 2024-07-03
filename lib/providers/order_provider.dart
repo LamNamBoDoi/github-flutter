@@ -11,7 +11,9 @@ class OrderProvider with ChangeNotifier {
   get isLoading => _isLoading;
   void setLoading(bool loading) {
     _isLoading = loading;
-    notifyListeners();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
   }
 
   Future<void> fetchOrders() async {
@@ -27,7 +29,6 @@ class OrderProvider with ChangeNotifier {
     } catch (e) {
       print('orders: ' + e.toString());
     } finally {
-      notifyListeners();
       setLoading(false);
     }
   }
@@ -40,36 +41,61 @@ class OrderProvider with ChangeNotifier {
           .add(order.toMap());
       _orders.add(
           OrderModel(id: order.id, carts: order.carts, price: order.price));
-
-      print(order.carts.first.name);
     } catch (e) {
       print('order error: ' + e.toString());
     } finally {
-      notifyListeners();
       setLoading(false);
     }
   }
 
   Future<void> updateOrder(OrderModel order) async {
     setLoading(true);
-    await FirebaseFirestore.instance
-        .collection('orders')
-        .doc(order.id)
-        .update({'carts': order.carts, 'price': order.price});
-    final index = _orders.indexWhere((element) => element.id == order.id);
-    if (index != -1) {
-      _orders[index] =
-          OrderModel(id: order.id, carts: order.carts, price: order.price);
+    try {
+      final snapshot =
+          await FirebaseFirestore.instance.collection('orders').get();
+      String? idDoc;
+      for (DocumentSnapshot doc in snapshot.docs) {
+        if (OrderModel.fromMap(doc).id == order.id) {
+          idDoc = doc.id;
+          break;
+        }
+      }
+      await FirebaseFirestore.instance
+          .collection('orders')
+          .doc(idDoc)
+          .update({'carts': order.carts, 'price': order.price});
+      final index = _orders.indexWhere((element) => element.id == order.id);
+      if (index != -1) {
+        _orders[index] =
+            OrderModel(id: order.id, carts: order.carts, price: order.price);
+      }
+    } catch (e) {
+      print(e);
+    } finally {
+      setLoading(false);
     }
-    notifyListeners();
-    setLoading(false);
   }
 
   Future<void> deleteOrder(String id) async {
     setLoading(true);
-    await FirebaseFirestore.instance.collection('orders').doc(id).delete();
-    _orders.removeWhere((element) => element.id == id);
-    notifyListeners();
-    setLoading(false);
+    try {
+      final snapshot =
+          await FirebaseFirestore.instance.collection('orders').get();
+      String? idDoc;
+      for (DocumentSnapshot doc in snapshot.docs) {
+        if (OrderModel.fromMap(doc).id == id) {
+          idDoc = doc.id;
+          break;
+        }
+      }
+
+      await FirebaseFirestore.instance.collection('orders').doc(idDoc).delete();
+
+      _orders.removeWhere((element) => element.id == id);
+    } catch (e) {
+      print(e);
+    } finally {
+      setLoading(false);
+    }
   }
 }

@@ -10,7 +10,10 @@ class ProductsProvider with ChangeNotifier {
   get isLoading => _isLoading;
   void setLoading(bool loading) {
     _isLoading = loading;
-    notifyListeners();
+    // đảm bảo notify được gọi sau khi widget được build hoàn tất
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
   }
 
   Future<void> fetchProducts() async {
@@ -26,45 +29,76 @@ class ProductsProvider with ChangeNotifier {
     } catch (e) {
       print("Error home: $e");
     } finally {
-      notifyListeners();
       setLoading(false);
     }
   }
 
   Future<void> addProduct(Product product) async {
     setLoading(true);
-    final docRef = await FirebaseFirestore.instance
-        .collection('products')
-        .add(product.toMap());
-    _products
-        .add(Product(id: product.id, name: product.name, price: product.price));
-
-    notifyListeners();
-    setLoading(false);
+    try {
+      final docRef = await FirebaseFirestore.instance
+          .collection('products')
+          .add(product.toMap());
+      _products.add(
+          Product(id: product.id, name: product.name, price: product.price));
+    } catch (e) {
+      print(e);
+    } finally {
+      setLoading(false);
+    }
   }
 
   Future<void> updateProduct(Product product) async {
     setLoading(true);
-
-    await FirebaseFirestore.instance
-        .collection('products')
-        .doc(product.id)
-        .update({'name': product.name, 'price': product.price});
-    final index = _products.indexWhere((element) => element.id == product.id);
-    if (index != -1) {
-      _products[index] =
-          Product(id: product.id, name: product.name, price: product.price);
+    try {
+      final snapshot =
+          await FirebaseFirestore.instance.collection('products').get();
+      String? idDoc;
+      for (DocumentSnapshot doc in snapshot.docs) {
+        if (Product.fromMap(doc).id == product.id) {
+          idDoc = doc.id;
+          break;
+        }
+      }
+      await FirebaseFirestore.instance
+          .collection('products')
+          .doc(idDoc)
+          .update({'name': product.name, 'price': product.price});
+      final index = _products.indexWhere((element) => element.id == product.id);
+      if (index != -1) {
+        _products[index] =
+            Product(id: product.id, name: product.name, price: product.price);
+      }
+    } catch (e) {
+      print(e);
+    } finally {
+      setLoading(false);
     }
-
-    notifyListeners();
-    setLoading(false);
   }
 
   Future<void> deleteProduct(String id) async {
     setLoading(true);
-    await FirebaseFirestore.instance.collection('products').doc(id).delete();
-    _products.removeWhere((element) => element.id == id);
-    notifyListeners();
-    setLoading(false);
+    try {
+      final snapshot =
+          await FirebaseFirestore.instance.collection('products').get();
+      String? idDoc;
+      for (DocumentSnapshot doc in snapshot.docs) {
+        if (Product.fromMap(doc).id == id) {
+          idDoc = doc.id;
+          break;
+        }
+      }
+
+      await FirebaseFirestore.instance
+          .collection('products')
+          .doc(idDoc)
+          .delete();
+      print(id);
+      _products.removeWhere((element) => element.id == id);
+    } catch (e) {
+      print(e);
+    } finally {
+      setLoading(false);
+    }
   }
 }

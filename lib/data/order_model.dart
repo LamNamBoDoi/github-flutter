@@ -15,7 +15,7 @@ class OrderModel {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
     return OrderModel(
-      id: doc.id,
+      id: data['id'],
       carts: listFromMap(data['carts']),
       price: data['price'],
     );

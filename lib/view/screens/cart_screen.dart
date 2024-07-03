@@ -9,6 +9,7 @@ import 'package:firebase/view/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:uuid/uuid.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -18,6 +19,7 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  var uuid = Uuid();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -178,7 +180,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                       if (cart.quantity !=
                                                                               null &&
                                                                           cart.quantity! >
-                                                                              0) {
+                                                                              1) {
                                                                         cart.quantity =
                                                                             cart.quantity! -
                                                                                 1;
@@ -284,8 +286,8 @@ class _CartScreenState extends State<CartScreen> {
                                                             child: const Icon(Icons
                                                                 .delete_outline),
                                                           ),
-                                                          onTap: () {
-                                                            cartProvider
+                                                          onTap: () async {
+                                                            await cartProvider
                                                                 .deleteCart(
                                                                     cart.id)
                                                                 .then((value) {
@@ -338,12 +340,14 @@ class _CartScreenState extends State<CartScreen> {
                           ],
                         ),
                         InkWell(
-                          onTap: () {
+                          onTap: () async {
                             List<Cart> carts = cartProvider.carts;
                             double totalPrice = cartProvider.totalPrice() ?? 0;
-                            orderProvider
+                            await orderProvider
                                 .addOrder(OrderModel(
-                                    id: '', carts: carts, price: totalPrice))
+                                    id: uuid.v4(),
+                                    carts: carts,
+                                    price: totalPrice))
                                 .then((value) {
                               cartProvider.clearCarts();
                             });
@@ -382,15 +386,13 @@ class _CartScreenState extends State<CartScreen> {
           int _selectedButtonSizeIndex = -1;
           int _selectedButtonIceIndex = -1;
           double price = cart.price;
-          print(price.toString());
-
           double priceEdit = 0;
+
           final products =
               Provider.of<ProductsProvider>(context).products.first;
           for (String size in products.size) {
             if (cart.size == size) {
               _selectedButtonSizeIndex = products.size.indexOf(size);
-              print(_selectedButtonIceIndex);
             }
           }
           for (String ice in products.ice) {
@@ -399,12 +401,11 @@ class _CartScreenState extends State<CartScreen> {
             }
           }
           if (_selectedButtonSizeIndex == 0)
-            priceEdit = price + price * 0.1 + 100;
+            priceEdit = price + 5000;
           else if (_selectedButtonSizeIndex == 1)
             priceEdit = price;
           else
-            priceEdit = price - price * 0.1 + 100;
-          print(priceEdit.toString() + ' , ' + cart.quantity.toString());
+            priceEdit = price - 5000;
 
           return AlertDialog(
             shape: const RoundedRectangleBorder(
@@ -442,16 +443,13 @@ class _CartScreenState extends State<CartScreen> {
                                         setState(() {
                                           _selectedButtonSizeIndex = index;
                                           if (index == 0)
-                                            price =
-                                                (priceEdit - priceEdit * 0.1)
-                                                    .ceilToDouble();
+                                            price = (priceEdit - 5000)
+                                                .ceilToDouble();
                                           else if (index == 2)
-                                            price =
-                                                (priceEdit + priceEdit * 0.1)
-                                                    .ceilToDouble();
+                                            price = (priceEdit + 5000)
+                                                .ceilToDouble();
                                           else
                                             price = priceEdit;
-                                          print('size: ' + index.toString());
                                         });
                                       },
                                       child: container(
@@ -490,7 +488,6 @@ class _CartScreenState extends State<CartScreen> {
                                         setState(() {
                                           _selectedButtonIceIndex = index;
                                         });
-                                        print('ice: ' + index.toString());
                                       },
                                       child: container(
                                           text: ice,
@@ -521,7 +518,8 @@ class _CartScreenState extends State<CartScreen> {
                           text: 'Cance', color: button_color, height: 50),
                     ),
                     InkWell(
-                      onTap: () => Provider.of<CartsProvider>(context,
+                      onTap: () async => await Provider.of<CartsProvider>(
+                              context,
                               listen: false)
                           .updateCart(
                               cart: Cart(
@@ -531,7 +529,10 @@ class _CartScreenState extends State<CartScreen> {
                                   quantity: cart.quantity,
                                   size: products.size[_selectedButtonSizeIndex],
                                   ice: products.ice[_selectedButtonIceIndex]))
-                          .then((value) => Navigator.of(context).pop()),
+                          .then((value) {
+                        Navigator.of(context).pop();
+                        showToast(message: 'Edited successfully');
+                      }),
                       child: container(
                           text: 'Ok', color: button_color, height: 50),
                     ),

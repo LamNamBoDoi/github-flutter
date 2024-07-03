@@ -10,43 +10,62 @@ class CartsProvider with ChangeNotifier {
   get isLoading => _isLoading;
   void setLoading(bool loading) {
     _isLoading = loading;
-    notifyListeners();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
   }
 
   Future<void> fetchCarts() async {
     setLoading(true);
-    final snapshot = await FirebaseFirestore.instance.collection('carts').get();
-    print('cart: ' + snapshot.docs.length.toString());
-    _carts.clear();
-    for (DocumentSnapshot doc in snapshot.docs) {
-      _carts.add(Cart.fromMap(doc));
+    try {
+      final snapshot =
+          await FirebaseFirestore.instance.collection('carts').get();
+      print('cart: ' + snapshot.docs.length.toString());
+      _carts.clear();
+      for (DocumentSnapshot doc in snapshot.docs) {
+        _carts.add(Cart.fromMap(doc));
+      }
+    } catch (e) {
+      print(e);
+    } finally {
+      setLoading(false);
     }
-
-    notifyListeners();
-    setLoading(false);
   }
 
   Future<void> addCart(Cart cart) async {
     setLoading(true);
-    final docRef =
-        await FirebaseFirestore.instance.collection('carts').add(cart.toMap());
-    _carts.add(Cart(
-        id: cart.id,
-        name: cart.name,
-        price: cart.price,
-        size: cart.size,
-        ice: cart.ice,
-        quantity: cart.quantity));
-
-    notifyListeners();
-    setLoading(false);
+    try {
+      final docRef = await FirebaseFirestore.instance
+          .collection('carts')
+          .add(cart.toMap());
+      _carts.add(Cart(
+          id: cart.id,
+          name: cart.name,
+          price: cart.price,
+          size: cart.size,
+          ice: cart.ice,
+          quantity: cart.quantity));
+    } catch (e) {
+      print(e);
+    } finally {
+      setLoading(false);
+    }
   }
 
   Future<void> updateCart({required Cart cart, int? quantity}) async {
     setLoading(true);
     try {
-      final docRef =
-          FirebaseFirestore.instance.collection('carts').doc(cart.id);
+      final snapshot =
+          await FirebaseFirestore.instance.collection('carts').get();
+      String? idDoc;
+      for (DocumentSnapshot doc in snapshot.docs) {
+        if (Cart.fromMap(doc).id == cart.id) {
+          idDoc = doc.id;
+          break;
+        }
+      }
+
+      final docRef = FirebaseFirestore.instance.collection('carts').doc(idDoc);
       final docSnapshot = await docRef.get();
 
       if (docSnapshot.exists) {
@@ -71,17 +90,31 @@ class CartsProvider with ChangeNotifier {
       }
     } catch (e) {
       print(e.toString());
+    } finally {
+      setLoading(false);
     }
-    notifyListeners();
-    setLoading(false);
   }
 
   Future<void> deleteCart(String id) async {
     setLoading(true);
-    await FirebaseFirestore.instance.collection('carts').doc(id).delete();
-    _carts.removeWhere((element) => element.id == id);
-    notifyListeners();
-    setLoading(false);
+    try {
+      final snapshot =
+          await FirebaseFirestore.instance.collection('carts').get();
+      String? idDoc;
+      for (DocumentSnapshot doc in snapshot.docs) {
+        if (Cart.fromMap(doc).id == id) {
+          idDoc = doc.id;
+          break;
+        }
+      }
+
+      await FirebaseFirestore.instance.collection('carts').doc(idDoc).delete();
+      _carts.removeWhere((element) => element.id == id);
+    } catch (e) {
+      print(e);
+    } finally {
+      setLoading(false);
+    }
   }
 
   double? totalPrice() {

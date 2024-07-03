@@ -1,11 +1,13 @@
 import 'package:firebase/consts/global_constrants.dart';
 import 'package:firebase/data/product_model.dart';
+import 'package:firebase/providers/order_provider.dart';
 import 'package:firebase/providers/products_provider.dart';
 import 'package:firebase/view/widgets/drawer_widget.dart';
 import 'package:firebase/view/widgets/form_container_widget.dart';
 import 'package:firebase/view/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class EditMenu extends StatefulWidget {
   const EditMenu({super.key});
@@ -15,6 +17,7 @@ class EditMenu extends StatefulWidget {
 }
 
 class _EditMenuState extends State<EditMenu> {
+  var uuid = Uuid();
   final idController = TextEditingController();
   final nameController = TextEditingController();
   final priceController = TextEditingController();
@@ -91,22 +94,23 @@ class _EditMenuState extends State<EditMenu> {
                         height: 10,
                       ),
                       InkWell(
-                        onTap: () {
+                        onTap: () async {
                           if (nameController.text == '' ||
                               priceController.text == '') {
                             showToast(message: "Don't add");
                           } else {
                             double price = double.parse(priceController.text);
-                            Provider.of<ProductsProvider>(context,
+                            await Provider.of<ProductsProvider>(context,
                                     listen: false)
                                 .addProduct(Product(
-                                    id: '',
+                                    id: uuid.v4(),
                                     name: nameController.text,
                                     price: price == price.toInt()
                                         ? price.ceilToDouble()
                                         : price));
                             nameController.text = '';
                             priceController.text = '';
+                            showToast(message: 'Add successfully');
                           }
                         },
                         child: Container(
@@ -248,7 +252,7 @@ class _EditMenuState extends State<EditMenu> {
                                                               style: TextStyle(
                                                                   fontSize: 15),
                                                             ))),
-                                                        onTap: () {
+                                                        onTap: () async {
                                                           if (product.name ==
                                                                   nameControllerDialog
                                                                       .text &&
@@ -264,7 +268,7 @@ class _EditMenuState extends State<EditMenu> {
                                                                 double.parse(
                                                                     priceControllerDialog
                                                                         .text);
-                                                            productProvider.updateProduct(Product(
+                                                            await productProvider.updateProduct(Product(
                                                                 id: product.id,
                                                                 name:
                                                                     nameControllerDialog
@@ -296,8 +300,8 @@ class _EditMenuState extends State<EditMenu> {
                                       width: 15,
                                     ),
                                     InkWell(
-                                      onTap: () {
-                                        productProvider
+                                      onTap: () async {
+                                        await productProvider
                                             .deleteProduct(product.id);
                                         showToast(message: 'Delete successly');
                                       },

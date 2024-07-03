@@ -2,6 +2,7 @@ import 'package:firebase/consts/global_constrants.dart';
 import 'package:firebase/providers/order_provider.dart';
 import 'package:firebase/view/widgets/container.dart';
 import 'package:firebase/view/widgets/drawer_widget.dart';
+import 'package:firebase/view/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,7 @@ class _ListOrderState extends State<ListOrder> {
   @override
   void initState() {
     super.initState();
+    // TODO: implement initState
     Provider.of<OrderProvider>(context, listen: false).fetchOrders();
   }
 
@@ -198,8 +200,11 @@ class _ListOrderState extends State<ListOrder> {
                                       width: 120,
                                       height: 60),
                                   InkWell(
-                                    onTap: () =>
-                                        orderProvider.deleteOrder(order.id),
+                                    onTap: () async {
+                                      await orderProvider.deleteOrder(order.id);
+                                      showToast(
+                                          message: 'Deleted successfully');
+                                    },
                                     child: const Icon(Icons.delete_outline),
                                   )
                                 ],

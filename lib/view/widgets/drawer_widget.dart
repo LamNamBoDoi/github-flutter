@@ -86,8 +86,8 @@ class _MyDrawerState extends State<MyDrawer> {
               child: buildrawertile(context, "Edit menu", Icons.edit_document),
             ),
             InkWell(
-              onTap: () {
-                FirebaseAuth.instance.signOut();
+              onTap: () async {
+                await FirebaseAuth.instance.signOut();
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => LoginScreen()));
                 showToast(message: "Successfully signed out");

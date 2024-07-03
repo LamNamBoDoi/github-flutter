@@ -22,6 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void dispose() {
+    super.dispose();
     // TODO: implement dispose
     emailController.dispose();
     userNameController.dispose();

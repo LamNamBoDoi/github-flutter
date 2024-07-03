@@ -19,7 +19,7 @@ class Cart {
   factory Cart.fromMap(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return Cart(
-        id: doc.id,
+        id: data['id'],
         name: data['name'],
         price: data['price'],
         size: data['size'],
