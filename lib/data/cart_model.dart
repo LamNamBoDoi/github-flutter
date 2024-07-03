@@ -21,7 +21,7 @@ class Cart {
     return Cart(
         id: data['id'],
         name: data['name'],
-        price: data['price'],
+        price: data['price'].toDouble(),
         size: data['size'],
         ice: data['ice'],
         quantity: data['quantity']);

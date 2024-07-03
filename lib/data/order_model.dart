@@ -17,7 +17,7 @@ class OrderModel {
     return OrderModel(
       id: data['id'],
       carts: listFromMap(data['carts']),
-      price: data['price'],
+      price: data['price'].toDouble(),
     );
   }
 

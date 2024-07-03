@@ -32,7 +32,7 @@ class Product {
     return Product(
         id: data['id'],
         name: data['name'],
-        price: data['price'],
+        price: data['price'].toDouble(),
         size: listFromMap(data['size']),
         ice: listFromMap(data['ice']));
   }

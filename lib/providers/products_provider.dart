@@ -23,6 +23,7 @@ class ProductsProvider with ChangeNotifier {
           await FirebaseFirestore.instance.collection('products').get();
       print('home: ${snapshot.docs.length}');
       _products.clear();
+
       for (DocumentSnapshot doc in snapshot.docs) {
         _products.add(Product.fromMap(doc));
       }
